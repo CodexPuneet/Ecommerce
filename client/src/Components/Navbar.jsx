@@ -16,14 +16,19 @@ import {
   } from '@chakra-ui/react';
   import { MoonIcon, SunIcon } from '@chakra-ui/icons';
   import { useNavigate } from "react-router-dom";
-  
+  import { useSelector } from "react-redux";
   
   export default function Navbar() {
     const navigate = useNavigate();
     const { colorMode, toggleColorMode } = useColorMode();
-    let data=JSON.parse(localStorage.getItem('paypal'))
+    const data=useSelector((store)=>(store.AuthReducer.isAuth))
+    let user="person"
+if(data.email.includes('@admin.com'))
+{
+  user="admin";
+}
     const handleLogout=()=>{
-      localStorage.removeItem('paypal')
+     
       navigate('/')
     }
     return (
@@ -51,17 +56,17 @@ import {
                       src={'https://thumbs.dreamstime.com/b/male-avatar-icon-flat-style-male-user-icon-cartoon-man-avatar-hipster-vector-stock-91462914.jpg'}
                     />
                   </MenuButton>
-                  <MenuList alignItems={'center'} z-Index={1000} >
+                  <MenuList zIndex={'1000'} alignItems={'center'} z-Index={1000} bg={user=='admin'?"teal":"Yellow"} >
                     <br />
                     <Center>
                       <Avatar
                         size={'2xl'}
-                        src={'https://images.avishkaar.cc/user/avatar/coder.webp'}
+                        src={user=='admin'?'https://images.avishkaar.cc/user/avatar/coder.webp':"https://us.123rf.com/450wm/robuart/robuart2010/robuart201000672/156977979-vector-cartoon-character-avatar-of-young-bearded-man-wearing-eyeglasses-in-yellow-t-shirt-isolated.jpg?ver=6"}
                       />
                     </Center>
                     <br />
                     <Center>
-                      <p>{data && data.data.user.name}</p>
+                      <p>{data && data.name}</p>
                     </Center>
                     <br />
                     <MenuDivider />
