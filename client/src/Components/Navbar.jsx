@@ -46,7 +46,7 @@ import {
             <Flex alignItems={'center'}>
               <Stack direction={'row'} spacing={7}>
 
-              <Button >
+              <Button onClick={()=>navigate("/cart")} >
                   <FaShoppingCart />
                   <Text w='20px' h={'18px'} color={'#ffff'} borderRadius={'50%'} bg={"red"} pos={'absolute'} right={'5px'} top={'1px'}>{item.length>9?"9+":item.length}</Text>
                 </Button>
