@@ -5,6 +5,7 @@ const getCartRequest = () => {
 };
 
 const getCartSuccess = (payload) => {
+  
   return { type: types.GET_CART_SUCCESS, payload };
 };
 

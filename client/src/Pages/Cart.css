@@ -25,13 +25,12 @@
   }
   
   a:hover {
-    color: #f58551;
+    color: #171416;
   }
-  
+
   button {
-    background-color: #16cc9b;
-    border: 2px solid #16cc9b;
-    color: #ffffff;
+    border: 2px solid hsl(164, 81%, 44%);
+    color: #2da9e1;
     transition: all 0.25s linear;
     cursor: pointer;
   }
@@ -42,14 +41,15 @@
     content: " \276f";
     transition: all 0.15s linear;
   }
-  
+
   button:hover {
-    background-color: #f58551;
-    border-color: #f58551;
+    background-color: #0f0d0d;
+    border-color: #51f56c;
+    color: #1bc448;
   }
   
   button:hover::after {
-    right: -5px;
+    right: -8px;
   }
   
   button:focus {
@@ -85,13 +85,7 @@
   }
   
   /* --- HEADER --- */
-  header.container {
-    margin-bottom: 1.5rem;
-  }
-  
-  header .breadcrumb {
-    color: #7d7d7d;
-  }
+
   
   header .breadcrumb li {
     float: left;
@@ -107,14 +101,11 @@
     padding-left: 8px;
   }
   
-  header .count {
-    float: right;
-    color: #333333;
-  }
+ 
   
   /* --- PRODUCT LIST --- */
   .products {
-    border-top: 1px solid #ddd;
+    margin-top: 30px;
   }
   
   .products > li {
@@ -133,7 +124,7 @@
   }
   
   .col.left {
-    width: 70%;
+    width: 50%;
   }
   
   .col.right {
@@ -141,65 +132,30 @@
     position: absolute;
     right: 0;
     top: calc(50% - 30px);
+    display: flex;
+    
   }
   
   .detail {
     padding: 0 0.5rem;
-    line-height: 2.2rem;
+    line-height: 4.0rem;
   }
   
   .detail .name {
-    font-size: 1.2rem;
+    font-size: 2.2rem;
+    font-family: bold;
+    font-family: cursive;
   }
   
-  .detail .description {
-    color: #7d7d7d;
-    font-size: 1rem;
-  }
   
   .detail .price {
     font-size: 1.5rem;
+    color: #0a7009ae;
   }
   
-  .quantity, .remove {
-    width: 50%;
-    text-align: center;
-  }
+
   
-  .remove svg {
-    width: 60px;
-    height: 60px;
-  }
-  
-  .quantity > input {
-    display: inline-block;
-    width: 60px;
-    height: 60px;
-    position: relative;
-    left: calc(50% - 30px);
-    background: #fff;
-    border: 2px solid #ddd;
-    color: #7f7f7f;
-    text-align: center;
-    font: 600 1.5rem Helvetica, Arial, sans-serif;
-  }
-  
-  .quantity > input:hover, .quantity > input:focus {
-    border-color: #f58551;
-  }
-  
-  .close {
-    fill: #7d7d7d;
-    transition: color 150ms linear,
-      background-color 150ms linear,
-      fill 150ms linear,
-      150ms opacity linear;
-    cursor: pointer;
-  }
-  
-  .close:hover {
-    fill: #f58551;
-  }
+
   
   /* --- SUMMARY --- */
   .promotion, .summary, .checkout {
@@ -224,7 +180,7 @@
   }
   
   .promotion:hover > input {
-    border-color: #f58551;
+    border-color: #10ab2c;
   }
   
   .promotion > button {
@@ -235,8 +191,9 @@
   }
   
   .promotion:hover > button {
-    border-color: #f58551;
-    background-color: #f58551;
+    border-color: #10ab2c;
+    background-color: #080605;
+    color: #10ab2c;
   }
   
   .promotion > button::after {

@@ -1,35 +1,53 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import Navbar from '../Components/Navbar'
 import { useDispatch, useSelector } from "react-redux";
 import { Box, Button, Center, Flex, Image, Text } from '@chakra-ui/react';
-import Page from './CartUi';
 import Cartt from './Cartt';
+import {
+  getCartError, getCartRequest, getCartSuccess
+} from "../Redux/AppReducer/action";
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Cart = () => {
-const [quant, setQuant]= useState(1)
-  const item=useSelector((store)=>(store.AppReducer.Cart))
+  const count=useSelector((store)=>(store.AppReducer.Cart))
+  const token=useSelector((store)=>(store.AuthReducer.token))
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const getCartData=()=>{
+    dispatch(getCartRequest())
+    axios.get('http://localhost:4500/cart/',{
+    headers:{
+      Authorization: token
+    }
+      }).then((res)=>dispatch(getCartSuccess(res.data)))
+      .catch((err)=>dispatch(getCartError()))
+  }
+
+  useEffect(()=>{
+    getCartData()
+    if(!token)
+    {
+     navigate('/')
+    }
+  },[])
+
 
   return (
     <div>
         <Navbar />
          <Box>
-{ item.length !==0? <Cartt /> 
-
-//  item.map((el)=>{
-//     return <Flex p={'5%'} border={'1px solid red'}>
-//     <Image w='12%' src={el.image} />
-//     <Text>{el.title}</Text>
-//     <Button onClick={()=>setQuant(quant)}>-</Button>
-//     <Button>{quant}</Button>
-//     <Button>+</Button>
-//     </Flex>
-//   }) 
+{ count.length !==0? <Cartt /> 
 :<Center><Image src='https://bakestudio.in/assets/images/cart/empty-cart.gif'/></Center> 
 }
         </Box> 
     </div>
   )
+
 }
 
 export default Cart
+
+
 

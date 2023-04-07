@@ -3,6 +3,7 @@ const { connection } = require("./Config/db");
 const { validator } = require("./Middleware/authentication");
 const { userRouter } = require("./Routes/user.routes");
 const { shopRouter } = require('./Routes/shop.routes');
+const { cartRouter } = require('./Routes/cart.routes');
 const app= express();
 
 const cors= require("cors");
@@ -24,6 +25,8 @@ app.use("/user", userRouter);
 app.use(validator);
 
 app.use('/shop', shopRouter )
+
+app.use('/cart', cartRouter )
 
 
 

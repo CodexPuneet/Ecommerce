@@ -47,20 +47,40 @@ const Homepage = () => {
       );
   };
 
-  useEffect(()=>{
-    getData()
-    if(!token)
-    {
-     navigate('/')
-    }
-  },[])
 
-const item=useSelector((store)=>(store.AppReducer.Cart))
+// const item=useSelector((store)=>(store.AppReducer.Cart))
 const handlecart=(el)=>{
-   dispatch(getCartSuccess([...item,el]))
+  const data={
+    ...el,
+    'quantity':1
+  }
+  axios.post('http://localhost:4500/cart/',data,{
+  headers:{
+    Authorization: token
+  }
+    })
+    .then((res)=>getCartData())
+    
+}
+const getCartData=()=>{
+  dispatch(getCartRequest())
+  axios.get('http://localhost:4500/cart/',{
+  headers:{
+    Authorization: token
+  }
+    }).then((res)=>dispatch(getCartSuccess(res.data)))
+    .catch((err)=>dispatch(getCartError()))
 }
 
-console.log(item.length)
+useEffect(()=>{
+  getData()
+  getCartData()
+  if(!token)
+  {
+   navigate('/')
+  }
+},[])
+
 
   return (
     <div>

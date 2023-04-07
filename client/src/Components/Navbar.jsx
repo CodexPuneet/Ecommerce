@@ -33,6 +33,7 @@ import {
       user="admin";
     }
     const handleLogout=()=>{
+      localStorage.removeItem('token')
       dispatch(getAuthLogout())
       navigate('/')
     }
@@ -40,7 +41,7 @@ import {
       <>
         <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4} >
           <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
-            <Box w='50px'><Image src="https://impresariopromotions.com/wp-content/uploads/2020/05/logo-60x49.png"/></Box>
+            <Box w='50px' onClick={()=>navigate("/home")}><Image src="https://impresariopromotions.com/wp-content/uploads/2020/05/logo-60x49.png"/></Box>
        
          <Text fontSize={'22px'} color={'#2da9e1'} fontFamily={'cursive'}><b><span style={{'color':'#f2a2c6'}}>Impresario</span> Promotions</b></Text>
             <Flex alignItems={'center'}>
@@ -67,7 +68,7 @@ import {
                       src={'https://thumbs.dreamstime.com/b/male-avatar-icon-flat-style-male-user-icon-cartoon-man-avatar-hipster-vector-stock-91462914.jpg'}
                     />
                   </MenuButton>
-                  <MenuList zIndex={'1000'} alignItems={'center'} z-Index={1000} bg={user=='admin'?"#b2f4ea":"Yellow"} >
+                  <MenuList zIndex={'1000'} alignItems={'center'} z-Index={1000} bg={user=='admin'?"#b2f4ea":"#f1a2c6"} >
                     <br />
                     <Center>
                       <Avatar

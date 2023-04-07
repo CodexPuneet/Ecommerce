@@ -45,12 +45,13 @@ export default function Loginpage() {
       axios.post('http://localhost:4500/user/login',data)
         .then((res)=>{
             if(res.data.token){
+              localStorage.setItem('token', (res.data.token))
               dispatch(getAuthSuccess(res.data))
             toast({
             title:'Login Sucessfull.',
             description: res.data.msg,
             status: 'success',
-            duration: 9000,
+            duration: 4000,
             isClosable: true,
           })
           if( res.data.msg=="User Login")
@@ -60,6 +61,14 @@ export default function Loginpage() {
           else{
             navigate("/admin");
           }
+          }else{
+            toast({
+              title:'Login Failed.',
+              description: res.data.msg,
+              status: 'err',
+              duration: 5000,
+              isClosable: true,
+            })
           }
  
     })
