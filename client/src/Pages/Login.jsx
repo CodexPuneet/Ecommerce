@@ -1,5 +1,4 @@
 import React from "react";
-
 import {
   Box,
   Button,
@@ -48,7 +47,7 @@ export default function Loginpage() {
             if(res.data.token){
               dispatch(getAuthSuccess(res.data))
             toast({
-            title: 'Login Sucessfull.',
+            title:'Login Sucessfull.',
             description: res.data.msg,
             status: 'success',
             duration: 9000,
@@ -56,7 +55,7 @@ export default function Loginpage() {
           })
           if( res.data.msg=="User Login")
           {
-            navigate("/homepage");
+            navigate("/home");
           }
           else{
             navigate("/admin");
@@ -68,7 +67,7 @@ export default function Loginpage() {
           dispatch(getAuthError())
         })
     }
-   useSelector((store)=>console.log(store))
+   
   return (
     <Box
       h={{ md: "100vh", lg: "100vh", base: "100vh" }}

@@ -16,4 +16,4 @@ const getAuthLogout = () => {
   return { type: types.GET_AUTH_LOGOUT };
 };
 
-export { getAuthError, getAuthRequest, getAuthSuccess };
+export { getAuthError, getAuthRequest, getAuthSuccess,getAuthLogout };

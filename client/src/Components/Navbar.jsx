@@ -4,6 +4,7 @@ import {
     Avatar,
     Button,
     Image,
+    Text,
     Menu,
     MenuButton,
     MenuList,
@@ -16,19 +17,23 @@ import {
   } from '@chakra-ui/react';
   import { MoonIcon, SunIcon } from '@chakra-ui/icons';
   import { useNavigate } from "react-router-dom";
-  import { useSelector } from "react-redux";
+  import { useSelector,useDispatch } from "react-redux";
+  import { FaShoppingCart } from 'react-icons/fa';
+  import {getAuthLogout} from "../Redux/AuthReducer/action";
   
   export default function Navbar() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const { colorMode, toggleColorMode } = useColorMode();
     const data=useSelector((store)=>(store.AuthReducer.isAuth))
+    const item=useSelector((store)=>(store.AppReducer.Cart))
     let user="person"
-if(data.email.includes('@admin.com'))
-{
-  user="admin";
-}
+    if(data.email && data.email.includes('@admin.com'))
+    {
+      user="admin";
+    }
     const handleLogout=()=>{
-     
+      dispatch(getAuthLogout())
       navigate('/')
     }
     return (
@@ -37,9 +42,15 @@ if(data.email.includes('@admin.com'))
           <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
             <Box w='50px'><Image src="https://impresariopromotions.com/wp-content/uploads/2020/05/logo-60x49.png"/></Box>
        
-  
+         <Text fontSize={'22px'} color={'#2da9e1'} fontFamily={'cursive'}><b><span style={{'color':'#f2a2c6'}}>Impresario</span> Promotions</b></Text>
             <Flex alignItems={'center'}>
               <Stack direction={'row'} spacing={7}>
+
+              <Button >
+                  <FaShoppingCart />
+                  <Text w='20px' h={'18px'} color={'#ffff'} borderRadius={'50%'} bg={"red"} pos={'absolute'} right={'5px'} top={'1px'}>{item.length>9?"9+":item.length}</Text>
+                </Button>
+
                 <Button onClick={toggleColorMode}>
                   {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
                 </Button>
@@ -56,7 +67,7 @@ if(data.email.includes('@admin.com'))
                       src={'https://thumbs.dreamstime.com/b/male-avatar-icon-flat-style-male-user-icon-cartoon-man-avatar-hipster-vector-stock-91462914.jpg'}
                     />
                   </MenuButton>
-                  <MenuList zIndex={'1000'} alignItems={'center'} z-Index={1000} bg={user=='admin'?"teal":"Yellow"} >
+                  <MenuList zIndex={'1000'} alignItems={'center'} z-Index={1000} bg={user=='admin'?"#b2f4ea":"Yellow"} >
                     <br />
                     <Center>
                       <Avatar
@@ -66,13 +77,13 @@ if(data.email.includes('@admin.com'))
                     </Center>
                     <br />
                     <Center>
-                      <p>{data && data.name}</p>
+                      <Text fontSize={'25px'} color={'pink.400'} fontFamily={'fantasy'}>{data && data.name}</Text>
                     </Center>
                     <br />
                     <MenuDivider />
-                    <MenuItem  onClick={()=>navigate("/homepage")}>Dashboard</MenuItem>
-                    <MenuItem onClick={()=>navigate("/homepage")}>Admin Panel</MenuItem>
-                    <MenuItem color={'red'} onClick={handleLogout}>Logout</MenuItem>
+                    <MenuItem  onClick={()=>navigate("/home")}>Dashboard</MenuItem>
+                    <MenuItem onClick={()=>navigate("/cart")}>Cart</MenuItem>
+                    <MenuItem bg={'#EE3E3E'} color={'white'} onClick={handleLogout}>Logout</MenuItem>
                   </MenuList>
                 </Menu>
               </Stack>

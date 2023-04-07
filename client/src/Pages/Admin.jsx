@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../Components/Navbar'
-import { Button } from '@chakra-ui/react'
+import { Button, Center, Image } from '@chakra-ui/react'
 import {
   Modal,
   ModalOverlay,
@@ -30,11 +30,13 @@ import {
   PopoverHeader,
   PopoverBody,
   Popover,
-  Img
+  Img,
 } from '@chakra-ui/react'
 import { useSelector } from "react-redux";
 import axios from 'axios';
 import {useNavigate } from 'react-router-dom';
+import { DeleteIcon, EditIcon } from '@chakra-ui/icons'
+
 
 const Admin = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -43,10 +45,10 @@ const Admin = () => {
   const finalRef = React.useRef(null)
   const navigate = useNavigate();
  const token=useSelector((store)=>(store.AuthReducer.token))
- if(!token)
- {
-  navigate('/')
- }
+//  if(!token)
+//  {
+//   navigate('/')
+//  }
   const [data, setData]=useState({
     title:"",
     image:"",
@@ -178,7 +180,7 @@ useEffect(()=>{
     <div>
 <Navbar/>
 
-<Button onClick={onOpen}>Post</Button>
+<Button m={"20px"} bg="#2ca8e0" color="#ffff" hover={"red"} onClick={onOpen}>Post</Button>
 <Modal
         initialFocusRef={initialRef}
         finalFocusRef={finalRef}
@@ -232,8 +234,8 @@ useEffect(()=>{
               <Thead>
                 <Tr>
                   <Th>Sr No.</Th>
-                  <Th>product_Img</Th>
-                  <Th>product_name</Th>
+                  <Th>Image</Th>
+                  <Th>Title</Th>
                   <Th>Price</Th>
                   <Th>Rating</Th>
                   <Th>Edit</Th>
@@ -241,7 +243,7 @@ useEffect(()=>{
                 </Tr>
               </Thead>
               <Tbody>
-                {list?.map((el, index) => {
+                {list.length==0 ?  <Image  src="https://i0.wp.com/globalzonetoday.com/wp-content/uploads/2021/03/Ankita-Dave.jpg"/> : list?.map((el, index) => {
                   return (
                     <Tr
                       p="10px"
@@ -265,7 +267,7 @@ useEffect(()=>{
                       <Td>
                         <Popover>
                           <PopoverTrigger>
-                            <Button mt="8px">Edit</Button>
+                            <Button color={'#ffff'} bg={'#14D52D'} mt="8px"><EditIcon /></Button>
                           </PopoverTrigger>
                           <PopoverContent>
                             <PopoverArrow />
@@ -304,11 +306,13 @@ useEffect(()=>{
                       </Td>
                       <Td>
                         <Button
+                        bg={'#D2141D'}
                           mt="8px"
                           onClick={() => handelDelete(el._id)}
                           ml="5px"
+                          color={'#ffff'}
                         >
-                          Remove
+                         <DeleteIcon  />
                         </Button>
                       </Td>
                     </Tr>

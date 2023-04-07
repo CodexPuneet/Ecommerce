@@ -19,7 +19,7 @@ const reducer = (state = initState, action) => {
     case types.GET_AUTH_FAILURE:
       return { ...state, isError: true, isAuth: false };
     case types.GET_AUTH_LOGOUT:
-      return { ...state, isAuth: false, token: null };
+      return { ...state, isAuth: false, token: null, isAuth:{} };
     default:
       return state;
   }
