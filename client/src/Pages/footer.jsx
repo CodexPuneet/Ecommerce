@@ -12,7 +12,7 @@ import {
   import { FaInstagram, FaFacebook, FaLinkedin } from 'react-icons/fa';
   
   
-  const Logo = (props) => {
+  const Logo = () => {
     return (
       <Box>
      <Image src="https://impresariopromotions.com/wp-content/uploads/elementor/thumbs/IMPRESARIO-GOOD-logo-oqeu7t8iqzn0fnelxp1gvenld0wpxy6m7ab0sarvq8.png"/>

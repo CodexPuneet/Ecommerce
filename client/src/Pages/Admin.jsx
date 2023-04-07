@@ -45,10 +45,7 @@ const Admin = () => {
   const finalRef = React.useRef(null)
   const navigate = useNavigate();
  const token=useSelector((store)=>(store.AuthReducer.token))
-//  if(!token)
-//  {
-//   navigate('/')
-//  }
+
   const [data, setData]=useState({
     title:"",
     image:"",
@@ -243,7 +240,7 @@ useEffect(()=>{
                 </Tr>
               </Thead>
               <Tbody>
-                {list.length==0 ?  <Image  src="https://i0.wp.com/globalzonetoday.com/wp-content/uploads/2021/03/Ankita-Dave.jpg"/> : list?.map((el, index) => {
+                {list.length==0 ?  <Center><Image src='https://bakestudio.in/assets/images/cart/empty-cart.gif'/></Center>  : list?.map((el, index) => {
                   return (
                     <Tr
                       p="10px"

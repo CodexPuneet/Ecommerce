@@ -1,12 +1,14 @@
-import { Button, Tag, Text, useToast } from '@chakra-ui/react';
+import { Button, Tag, Text, useToast,Box } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { useSelector, useDispatch } from "react-redux";
 import { DeleteIcon } from '@chakra-ui/icons'
 import "./Cart.css"
+import Payment from './Payment'
 import {
   getCartError, getCartRequest, getCartSuccess
 } from "../Redux/AppReducer/action";
+import { useNavigate } from 'react-router-dom';
 
 const Cartt = () => {
   const products =useSelector((store)=>(store.AppReducer.Cart))
@@ -41,13 +43,14 @@ function Header() {
       </header>
     );
   }
-  function ProductList() {
+  function ProductList({props}) {
+    console.log(props)
     const dispatch = useDispatch();
     const toast = useToast()
     const products =useSelector((store)=>(store.AppReducer.Cart))
     const token=useSelector((store)=>(store.AuthReducer.token))
     const handelDelete = (id) => {
-      axios.delete(`http://localhost:4500/cart/${id}`, {
+      axios.delete(`http://localhost:4500/cart/data/${id}`, {
         headers: {
           "content-type": "application/json",
           Authorization: token
@@ -83,6 +86,8 @@ function Header() {
       }).then((res)=>dispatch(getCartSuccess(res.data)))
       .catch((err)=>dispatch(getCartError()))
   }
+
+
 const handleEdit=(id,x)=>{
   let quant=x<1?1:x
 const data={
@@ -100,10 +105,12 @@ axios.patch(`http://localhost:4500/cart/${id}`,data, {
     return (
       <section className="container">
         <ul className="products">
+
           {products.map((product, index) => {
              
             return (
               <li className="row" key={index}>
+                
                 <div className="col left">
                   <div className="thumbnail">
                       <img src={product.image} alt={product.name} />
@@ -143,38 +150,70 @@ axios.patch(`http://localhost:4500/cart/${id}`,data, {
       </section>
     );
   }
-  function Summary({
-    subTotal,
-    discount,
-  }) {
+  function Summary({ subTotal}) {
+    const navigate = useNavigate();
+    const toast = useToast()
     let tax=17;
-    let total = subTotal+(subTotal*0.17);
-
+    const [total,setTotal]=useState(Math.floor(subTotal+(subTotal*0.17)))
+  const [discount, setDiscount]=useState(0)
   const [promo, setPromo]=useState("")
+  useEffect(()=>{
+    handelDiscount()
+    setTotal(Math.floor(subTotal+(subTotal*0.17)))
+  },[subTotal])
   const handelDiscount=()=>{
-    if(promo=="Richa30")
+    if(promo=="Richa20")
     {
-       total=Math.floor(subTotal-(subTotal*0.3))
-       console.log(total)
+       setDiscount(Math.floor((subTotal*0.3)));
+       setTotal(Math.floor(subTotal-(subTotal*0.3)+(subTotal*0.17)))
     }
-    else if(promo=="Mart60")
+    else if(promo=="Mart50")
     {
+      setDiscount((subTotal*0.6));
+      setTotal(subTotal-(subTotal*0.6)+(subTotal*0.17))
+    }
+    else if(promo=="Mart30")
+    {
+      setDiscount((subTotal*0.8));
+       setTotal(subTotal-(subTotal*0.8)+(subTotal*0.17))
+    }
+  }
+  const token=useSelector((store)=>store.AuthReducer.token)
+ 
+  const handleCheckout=()=>{
 
+    axios.delete(`http://localhost:4500/cart/alldata`, {
+      headers: {
+        "content-type": "application/json",
+        Authorization: token
+      },
+    }).then((res)=>{
+      toast({
+        title:'Please Wait.',
+        description: "W're continously checking on Payment",
+        status: 'warning',
+        duration: 3000,
+        isClosable: true,
+      })
+      setTimeout(()=>{
+        navigate("/payment")
+    },4000)
     }
-    else if(promo=="Mart80")
-    {
-      
-    }
+     )
+    
   }
   
     return (
-      <section className="container">
+      <section className="container"> 
         <div className="promotion">
           <label htmlFor="promo-code">Have A Promo Code?</label>
           <input type="text" onChange={(e)=>setPromo(e.target.value)} />
           <button type="button" onClick={handelDiscount} />
+         
         </div>
   
+       
+
         <div className="summary">
           <ul>
             <li>
@@ -195,8 +234,10 @@ axios.patch(`http://localhost:4500/cart/${id}`,data, {
         </div>
   
         <div className="checkout">
-          <button type="button">Check Out</button>
+          <button onClick={handleCheckout} type="button">Check Out</button>
         </div>
+    
+       
       </section>
     );
   }

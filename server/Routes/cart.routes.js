@@ -1,16 +1,27 @@
 const express= require("express");
 const { cartModel } = require("../Model/cart.model");
+const { validator } = require("../Middleware/authentication");
+const jwt= require("jsonwebtoken")
 
 const cartRouter= express.Router();
 
 cartRouter.get("/", async(req, res)=>{
-    try {
-        const data= await cartModel.find();
-        res.send(data)
-    } catch (error) {
-        console.log(error);
-        res.send("Unable to fetch User data")
+    const token= req.headers.authorization;
+    if(token){
+        jwt.verify(token, 'shop',async (err, decoded)=>{
+            if(decoded){
+               let id= decoded.userId;
+               try {
+                const data= await cartModel.find({userId:id});
+                res.send(data)
+            } catch (error) {
+                console.log(error);
+                res.send("Unable to fetch User data")
+            }
+            }
+        })
     }
+   
 })
 
 cartRouter.post("/", async(req, res)=>{
@@ -28,7 +39,7 @@ cartRouter.post("/", async(req, res)=>{
     }
 })
 
-cartRouter.delete("/:id", async(req, res)=>{
+cartRouter.delete("/data/:id", async(req, res)=>{
      const id= req.params.id;
      try {
         await cartModel.findByIdAndDelete({_id:id});
@@ -38,6 +49,25 @@ cartRouter.delete("/:id", async(req, res)=>{
         res.send("Unable to delete")
     }
 })
+cartRouter.delete("/alldata", async(req, res)=>{
+    const token= req.headers.authorization;
+    if(token){
+        jwt.verify(token, 'shop',async (err, decoded)=>{
+            if(decoded){
+               let id = decoded.userId;
+               try {
+                await cartModel.deleteMany({userId:id});
+                res.send("Purchased Sucessfull")
+            } catch (error) {
+                console.log(error);
+                res.send("data")
+            }
+            }
+        })
+    }
+
+})
+
 
 cartRouter.patch("/:id", async(req, res)=>{
     const data= req.body;

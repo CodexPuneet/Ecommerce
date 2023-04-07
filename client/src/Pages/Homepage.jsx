@@ -48,7 +48,6 @@ const Homepage = () => {
   };
 
 
-// const item=useSelector((store)=>(store.AppReducer.Cart))
 const handlecart=(el)=>{
   const data={
     ...el,
@@ -128,6 +127,7 @@ useEffect(()=>{
             <Image
             mt="20px"
             rounded={'lg'}
+            p='5px'
             borderRadius={"5px"}
             height={290}
             width={282}
