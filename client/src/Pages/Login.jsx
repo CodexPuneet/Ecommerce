@@ -42,7 +42,7 @@ export default function Loginpage() {
     const handleSubmit=(e)=>{
       e.preventDefault()
       dispatch(getAuthRequest())
-      axios.post('http://localhost:4500/user/login',data)
+      axios.post('https://tough-erin-peplum.cyclic.app/user/login',data)
         .then((res)=>{
             if(res.data.token){
               localStorage.setItem('token', (res.data.token))
@@ -144,6 +144,7 @@ export default function Loginpage() {
                     errorBorderColor="black"
                     id="password"
                     name="password"
+                    type="password"
                     placeholder="Password"
                     color="black"
                     required={true}
@@ -170,7 +171,7 @@ export default function Loginpage() {
                   <Text variant={"outline"} fontSize={{ md: "15px", lg: "17px", base: "12px" }}>
                     <b>
                       {" "}
-                     Welcome to our Lelo-Mart
+                     Welcome to our E-Mart 
                     </b>
                   </Text>
                 </Box>

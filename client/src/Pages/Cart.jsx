@@ -17,7 +17,7 @@ const Cart = () => {
 
   const getCartData=()=>{
     dispatch(getCartRequest())
-    axios.get('http://localhost:4500/cart/',{
+    axios.get('https://tough-erin-peplum.cyclic.app/cart/',{
     headers:{
       Authorization: token
     }

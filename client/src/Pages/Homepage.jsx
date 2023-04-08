@@ -28,7 +28,7 @@ const Homepage = () => {
   const token=useSelector((store)=>(store.AuthReducer.token))
 
   const getData = () => {
-    axios.get(`http://localhost:4500/shop/`, {
+    axios.get(`https://tough-erin-peplum.cyclic.app/shop/`, {
       headers: {
         "content-type": "application/json",
         Authorization: token
@@ -53,7 +53,7 @@ const handlecart=(el)=>{
     ...el,
     'quantity':1
   }
-  axios.post('http://localhost:4500/cart/',data,{
+  axios.post('https://tough-erin-peplum.cyclic.app/cart/',data,{
   headers:{
     Authorization: token
   }
@@ -63,7 +63,7 @@ const handlecart=(el)=>{
 }
 const getCartData=()=>{
   dispatch(getCartRequest())
-  axios.get('http://localhost:4500/cart/',{
+  axios.get('https://tough-erin-peplum.cyclic.app/cart/',{
   headers:{
     Authorization: token
   }

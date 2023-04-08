@@ -50,7 +50,7 @@ function Header() {
     const products =useSelector((store)=>(store.AppReducer.Cart))
     const token=useSelector((store)=>(store.AuthReducer.token))
     const handelDelete = (id) => {
-      axios.delete(`http://localhost:4500/cart/data/${id}`, {
+      axios.delete(`https://tough-erin-peplum.cyclic.app/cart/data/${id}`, {
         headers: {
           "content-type": "application/json",
           Authorization: token
@@ -79,7 +79,7 @@ function Header() {
   
   const getCartData=()=>{
     dispatch(getCartRequest())
-    axios.get('http://localhost:4500/cart/',{
+    axios.get('https://tough-erin-peplum.cyclic.app/cart/',{
     headers:{
       Authorization: token
     }
@@ -93,7 +93,7 @@ const handleEdit=(id,x)=>{
 const data={
   quantity:quant
 }
-axios.patch(`http://localhost:4500/cart/${id}`,data, {
+axios.patch(`https://tough-erin-peplum.cyclic.app/cart/${id}`,data, {
   headers: {
     "content-type": "application/json",
     Authorization: token
@@ -169,20 +169,20 @@ axios.patch(`http://localhost:4500/cart/${id}`,data, {
     }
     else if(promo=="Mart50")
     {
-      setDiscount((subTotal*0.6));
-      setTotal(subTotal-(subTotal*0.6)+(subTotal*0.17))
+      setDiscount((subTotal*0.5));
+      setTotal(subTotal-(subTotal*0.5)+(subTotal*0.17))
     }
     else if(promo=="Mart30")
     {
-      setDiscount((subTotal*0.8));
-       setTotal(subTotal-(subTotal*0.8)+(subTotal*0.17))
+      setDiscount((subTotal*0.3));
+       setTotal(subTotal-(subTotal*0.3)+(subTotal*0.17))
     }
   }
   const token=useSelector((store)=>store.AuthReducer.token)
  
   const handleCheckout=()=>{
 
-    axios.delete(`http://localhost:4500/cart/alldata`, {
+    axios.delete(`https://tough-erin-peplum.cyclic.app/cart/alldata`, {
       headers: {
         "content-type": "application/json",
         Authorization: token

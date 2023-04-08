@@ -41,7 +41,7 @@ export default function Signup() {
     }
     const handleSubmit=(e)=>{
       e.preventDefault()
-        axios.post('http://localhost:4500/user/signup',data)
+        axios.post('https://tough-erin-peplum.cyclic.app/user/signup',data)
         .then((res)=>{
           console.log(res)
           toast({

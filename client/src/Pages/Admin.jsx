@@ -67,7 +67,7 @@ const handleChange=(e)=>{
 
 const handlePost=(e)=>{
   e.preventDefault()
-  axios.post('http://localhost:4500/shop/',data,{
+  axios.post('https://tough-erin-peplum.cyclic.app/shop/',data,{
 headers:{
   Authorization: token
 }
@@ -90,7 +90,7 @@ headers:{
 }
   
 const getData = () => {
-  axios.get(`http://localhost:4500/shop/`, {
+  axios.get(`https://tough-erin-peplum.cyclic.app/shop/`, {
     headers: {
       "content-type": "application/json",
       Authorization: token
@@ -109,7 +109,7 @@ const getData = () => {
     );
 };
 const handelDelete = (id) => {
-    axios.delete(`http://localhost:4500/shop/${id}`, {
+    axios.delete(`https://tough-erin-peplum.cyclic.app/shop/${id}`, {
       headers: {
         "content-type": "application/json",
         Authorization: token
@@ -140,7 +140,7 @@ const handelDelete = (id) => {
 const handelEdit = (id) => {
   let edit = { [editKey]: editValue };
 
-  axios.patch(`http://localhost:4500/shop/${id}`,edit, {
+  axios.patch(`https://tough-erin-peplum.cyclic.app/shop/${id}`,edit, {
     headers: {
       "content-type": "application/json",
       Authorization: token
